@@ -141,6 +141,21 @@ void HelloTask() {
 	}
 }
 
+void Task1() {
+	while (1) {
+		printf("This is task1\n");
+		fflush(stdout);
+		vTaskDelay(100);
+	}
+}
+
+void Task2() {
+	while (1) {
+		printf("This is task2\n");
+		vTaskDelay(500);
+	}
+}
+
 int main( void )
 {
 	/* This demo uses heap_5.c, so start by defining some heap regions.  heap_5
@@ -153,8 +168,10 @@ int main( void )
 	vTraceEnable( TRC_START );
 
 	xTaskHandle HT;
-	xTaskCreate(HelloTask, "HelloTask", configMINIMAL_STACK_SIZE, NULL, 1, &HT);
-	
+	//xTaskCreate(HelloTask, "HelloTask", configMINIMAL_STACK_SIZE, NULL, 1, &HT);
+	xTaskCreate(Task1, "Task1", 1000, NULL, 3, &HT);
+	xTaskCreate(Task2, "Task2", 100, NULL, 1, &HT);
+
 	vTaskStartScheduler();
 	for (;;);
 	return 0;
